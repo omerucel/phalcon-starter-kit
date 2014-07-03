@@ -1,0 +1,32 @@
+{
+    "name": "omerucel/phalcon-starter-kit",
+    "type": "library",
+    "require": {
+        "php": ">=5.5.0",
+        "symfony/console": "2.3.*",
+        "doctrine/migrations": "dev-master",
+        "doctrine/dbal": "2.4.2",
+        "symfony/yaml": "2.4.4"
+    },
+    "require-dev": {
+        "facebook/xhprof": "dev-master",
+        "behat/behat": "2.4.*@stable",
+        "symfony/process": "2.3.7",
+        "phpunit/phpunit": "4.0.14",
+        "phpunit/dbunit": "1.3.1",
+        "phpunit/php-code-coverage": "2.0.5",
+        "squizlabs/php_codesniffer": "1.5.2",
+        "rmccue/requests": "1.6.1"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/phacility/xhprof.git"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Application": "src/"
+        }
+    }
+}

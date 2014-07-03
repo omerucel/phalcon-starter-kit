@@ -1,0 +1,37 @@
+<?php
+
+$configs = include(__DIR__ . '/global.php');
+
+ini_set('display_errors', true);
+
+/**
+ * XHPROF
+ */
+ini_set('xhprof.output_dir', BASE_PATH . '/tmp/');
+xhprof_enable(XHPROF_FLAGS_CPU + XHPROF_FLAGS_MEMORY);
+
+register_shutdown_function(
+    function () {
+        $xhprofData = xhprof_disable();
+
+        $xhprof_runs = new \XHProfRuns_Default();
+        $xhprof_runs->save_run($xhprofData, "app");
+    }
+);
+
+/**
+ * levels:
+ *
+ * 7 DEBUG
+ * 6 INFO
+ * 5 NOTICE
+ * 4 WARNING
+ * 3 ERROR
+ * 2 CRITICAL
+ * 1 ALERT
+ * 0 EMERGENCY
+ *
+ */
+$configs['logger']['level'] = 7;
+
+return $configs;
