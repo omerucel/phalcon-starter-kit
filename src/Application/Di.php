@@ -6,7 +6,6 @@ use Application\Logger\Helper;
 use Application\Web\Dispatcher;
 use Composer\Autoload\ClassLoader;
 use Phalcon\Config\Adapter\Php;
-use Phalcon\Db\Adapter\Pdo\Mysql;
 use Phalcon\Http\Request;
 use Phalcon\Http\Response;
 use Phalcon\Logger\Adapter\File;
@@ -79,11 +78,11 @@ class Di extends \Phalcon\DI
     }
 
     /**
-     * @return Mysql
+     * @return \PDO
      */
-    public function getMySQLConnection()
+    public function getPDO()
     {
-        return $this->getShared('mysql_connection');
+        return $this->getShared('pdo');
     }
 
     /**
