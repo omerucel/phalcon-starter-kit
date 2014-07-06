@@ -22,12 +22,13 @@ $configs['console_application'] = array();
 $configs['console_application']['name'] = 'Console Application';
 
 /**
- * PDO Service Configs
+ * Database
  */
-$configs['pdo'] = array();
-$configs['pdo']['dsn'] = 'mysql:host=127.0.0.1;dbname=sample;charset=utf8';
-$configs['pdo']['username'] = 'root';
-$configs['pdo']['password'] = '';
+$configs['mysql_connection'] = array();
+$configs['mysql_connection']['host'] = '127.0.0.1';
+$configs['mysql_connection']['username'] = 'root';
+$configs['mysql_connection']['password'] = '';
+$configs['mysql_connection']['dbname'] = 'sample';
 
 /**
  * Memcached Service Configs

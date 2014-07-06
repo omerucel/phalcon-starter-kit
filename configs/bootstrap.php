@@ -43,13 +43,22 @@ $di->set('logger_helper', function () use ($di) {
 }, true);
 
 /**
- * PDO
+ * MySQL Connection
  */
-$di->set('pdo', function () use ($di) {
-    $config = $di->getConfigs();
-    $pdo = new PDO($config->pdo->dsn, $config->pdo->username, $config->pdo->password);
-    $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-    return $pdo;
+$di->set('mysql_connection', function () use ($di) {
+    $config = $di->getConfigs()->mysql_connection;
+    $connection = new \Phalcon\Db\Adapter\Pdo\Mysql(array(
+        "host" => $config->host,
+        "username" => $config->username,
+        "password" => $config->password,
+        "dbname" => $config->dbname,
+        "options" => array(
+            \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'",
+            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
+        )
+    ));
+
+    return $connection;
 }, true);
 
 /**

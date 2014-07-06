@@ -28,10 +28,14 @@ $consoleApp->getHelperSet()->set(new \Application\Console\DiHelper($di));
 /**
  * Doctrine ile ilgili komutlar özel olarak ekleniyor.
  */
+$mysqlConfig = $di->getConfigs()->mysql_connection;
 $doctrineConn = \Doctrine\DBAL\DriverManager::getConnection(
     array(
         'driver' => 'pdo_mysql',
-        'pdo' => $di->get('pdo')
+        'host' => $mysqlConfig->host,
+        'dbname' => $mysqlConfig->dbname,
+        'user' => $mysqlConfig->username,
+        'password' => $mysqlConfig->password
     )
 );
 $consoleApp->getHelperSet()->set(new \Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper($doctrineConn));
