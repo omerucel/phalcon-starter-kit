@@ -8,7 +8,7 @@ class DiSingleton
     protected static $instance;
 
     /**
-     * @var \Pozitim\Subs\Di
+     * @var \Application\Di
      */
     protected $dependencyInjection;
 
@@ -25,7 +25,7 @@ class DiSingleton
     }
 
     /**
-     * @param \Pozitim\Subs\Di $dependencyInjection
+     * @param \Application\Di $dependencyInjection
      */
     public function setDi($dependencyInjection)
     {
@@ -33,7 +33,7 @@ class DiSingleton
     }
 
     /**
-     * @return \Pozitim\Subs\Di
+     * @return \Application\Di
      */
     public function getDi()
     {
