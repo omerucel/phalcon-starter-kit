@@ -4,6 +4,7 @@ namespace Application;
 
 use Application\Logger\Helper;
 use Application\Web\Dispatcher;
+use Composer\Autoload\ClassLoader;
 use Phalcon\Config\Adapter\Php;
 use Phalcon\Http\Request;
 use Phalcon\Http\Response;
@@ -18,6 +19,14 @@ class Di extends \Phalcon\DI
     public function getConfigs()
     {
         return $this->getShared('configs');
+    }
+
+    /**
+     * @return ClassLoader
+     */
+    public function getClassLoader()
+    {
+        return $this->getShared('class_loader');
     }
 
     /**

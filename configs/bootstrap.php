@@ -1,8 +1,13 @@
 <?php
 
-include_once(realpath(__DIR__ . '/../') . '/vendor/autoload.php');
+$loader = include(realpath(__DIR__ . '/../') . '/vendor/autoload.php');
 
 $di = new \Application\Di();
+
+/**
+ * Class Loader
+ */
+$di->set('class_loader', $loader, true);
 
 /**
  * Configs
