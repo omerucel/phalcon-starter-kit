@@ -3,6 +3,7 @@
 namespace Application\Web;
 
 use Application\Di;
+use Application\ErrorCatcher;
 use Phalcon\Http\Response;
 
 abstract class BaseController
@@ -13,11 +14,17 @@ abstract class BaseController
     protected $dependencyInjection;
 
     /**
+     * @var ErrorCatcher
+     */
+    protected $errorCatcher;
+
+    /**
      * @param Di $dependencyInjection
      */
     public function __construct(Di $dependencyInjection)
     {
         $this->dependencyInjection = $dependencyInjection;
+        $this->getErrorCatcher()->register();
     }
 
     /**
@@ -29,12 +36,22 @@ abstract class BaseController
     }
 
     /**
+     * @return ErrorCatcher
+     */
+    protected function getErrorCatcher()
+    {
+        if ($this->errorCatcher == null) {
+            $this->errorCatcher = new ErrorCatcher($this->getDi()->getDefaultLogger());
+        }
+        return $this->errorCatcher;
+    }
+
+    /**
      * @param array $params
      * @return null
      */
     public function preDispatch(array $params = [])
     {
-        $this->registerErrorHandlers();
         return null;
     }
 
@@ -46,62 +63,6 @@ abstract class BaseController
     {
         return null;
     }
-
-    public function registerErrorHandlers()
-    {
-        set_error_handler(array($this, 'errorHandler'));
-        set_exception_handler(array($this, 'handleException'));
-        register_shutdown_function(array($this, 'fatalErrorHandler'));
-    }
-
-    /**
-     * Bir hata oluştuğunda bu metod tetiklenir.
-     *
-     * @param $errNo
-     * @param $errStr
-     * @param $errFile
-     * @param $errLine
-     * @throws \ErrorException
-     */
-    public function errorHandler($errNo, $errStr, $errFile, $errLine)
-    {
-        throw new \ErrorException($errStr, $errNo, 0, $errFile, $errLine);
-    }
-
-    /**
-     * Ölümcül bir hata oluştuğunda bu metod tetiklenir.
-     *
-     * @return mixed
-     */
-    public function fatalErrorHandler()
-    {
-        $error = error_get_last();
-
-        if ($error !== null) {
-            $errNo = $error["type"];
-            $errFile = $error["file"];
-            $errLine = $error["line"];
-            $errStr = $error["message"];
-
-            $this->handleFatalError($errStr, $errNo, $errFile, $errLine);
-        }
-    }
-
-    /**
-     * @param \Exception $exception
-     * @return mixed
-     */
-    abstract public function handleException(\Exception $exception);
-
-    /**
-     * @param $errStr
-     * @param $errNo
-     * @param $errFile
-     * @param $errLine
-     * @return mixed
-     */
-    abstract public function handleFatalError($errStr, $errNo, $errFile, $errLine);
-
 
     /**
      * @param array $result

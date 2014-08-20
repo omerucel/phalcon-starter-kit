@@ -2,13 +2,13 @@
 
 namespace Application;
 
-use Application\Logger\Helper;
+use Application\Logger\Logger;
+use Application\Logger\PhalconLoggerHelper;
 use Application\Web\Dispatcher;
 use Composer\Autoload\ClassLoader;
 use Phalcon\Config\Adapter\Php;
 use Phalcon\Http\Request;
 use Phalcon\Http\Response;
-use Phalcon\Logger\Adapter\File;
 use Phalcon\Mvc\Router;
 
 class Di extends \Phalcon\DI
@@ -62,7 +62,7 @@ class Di extends \Phalcon\DI
     }
 
     /**
-     * @return File
+     * @return Logger
      */
     public function getDefaultLogger()
     {
@@ -70,7 +70,7 @@ class Di extends \Phalcon\DI
     }
 
     /**
-     * @return Helper
+     * @return PhalconLoggerHelper
      */
     public function getLoggerHelper()
     {

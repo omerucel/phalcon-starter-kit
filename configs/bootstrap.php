@@ -39,7 +39,7 @@ $di->set('dispatcher', function () use ($di) {
  * Logger Helper
  */
 $di->set('logger_helper', function () use ($di) {
-    return new \Application\Logger\Helper($di);
+    return new \Application\Logger\PhalconLoggerHelper($di);
 }, true);
 
 /**
