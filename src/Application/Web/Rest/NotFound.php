@@ -1,6 +1,9 @@
 <?php
 
-namespace Application\Web;
+namespace Application\Web\Rest;
+
+use Application\Web\BaseRestController;
+use Application\Web\Error;
 
 class NotFound extends BaseRestController
 {
